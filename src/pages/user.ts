@@ -7,7 +7,8 @@ import {
 } from "../HTMLElement";
 
 const renderUserElement = (data: User, i: number): void => {
-  const row = getElement(`user${i}`)!;
+  const row = createTableRowElement();
+  row.setAttribute("id", `user${i}`);
   const address = `${data.address.city} ${data.address.suite} ${data.address.street}`;
   row.innerHTML = `
     <td id="id${i}">${sanitizedText(String(data.id))}</td>
@@ -16,18 +17,30 @@ const renderUserElement = (data: User, i: number): void => {
     <td id="address${i}">${sanitizedText(address)}</td>
     <td id="phone${i}">${sanitizedText(data.phone)}</td>
     <td id="company${i}">${sanitizedText(data.company.name)}</td>
+    <td>
+      <button id="remove-button${i}" type="button">削除</button>
+    </td>
   `;
+  getElement("userTable")!.appendChild(row);
+};
+const removeUserRowElement = (i: number): void => {
+  getElement(`user${i}`)?.remove();
 };
 
 const [users, setUsers] = useState<User[]>([], (data: User[]): void => {
   data.map((item: User, i: number): void => {
-    const userRow = getElement(`user${i}`);
-    if (userRow === null) {
-      const row = createTableRowElement();
-      row.setAttribute("id", `user${i}`);
-      getElement("userTable")!.appendChild(row);
-    }
-    renderUserElement(item, i);
+    removeUserRowElement(i + 1);
+    renderUserElement(item, i + 1);
+    useSetEvent(
+      "click",
+      getButtonElement(`remove-button${i + 1}`)!,
+      (event) => {
+        const target = event.currentTarget! as HTMLElement;
+        const elementId = target.getAttribute("id")!;
+        const removedId = Number(elementId.replace("remove-button", ""));
+        removeUserRowElement(removedId);
+      }
+    );
   });
 });
 
