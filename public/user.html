@@ -6,18 +6,45 @@
     <title>user</title>
   </head>
   <body>
-    <table>
-      <thead>
-        <th>ID</th>
-        <th>名前</th>
-        <th>ユーザー名</th>
-        <th>住所</th>
-        <th>電話番号</th>
-        <th>会社</th>
-      </thead>
-      <tbody id="userTable"></tbody>
-    </table>
-    <button id="reverse-button" type="button">逆順</button>
+    <div>
+      <table>
+        <thead>
+          <th>ID</th>
+          <th>名前</th>
+          <th>ユーザー名</th>
+          <th>住所</th>
+          <th>電話番号</th>
+          <th>会社</th>
+          <th></th>
+        </thead>
+        <tbody id="userTable"></tbody>
+      </table>
+    </div>
+    <div>
+      <form name="userForm">
+        <div>
+          <label for="inputName">名前</label>
+          <input type="text" name="name" value="" />
+        </div>
+        <div>
+          <label for="inputUserName">ユーザー名</label>
+          <input type="text" name="username" value="" />
+        </div>
+        <div>
+          <label for="inputAddress">住所</label>
+          <input type="text" name="address" value="" />
+        </div>
+        <div>
+          <label for="inputPhone">電話番号</label>
+          <input type="text" name="phone" value="" />
+        </div>
+        <div>
+          <label for="inputCompany">会社</label>
+          <input type="text" name="company" value="" />
+        </div>
+        <button id="addUserButton" type="button">追加</button>
+      </form>
+    </div>
   </body>
   <script type="module" src="/src/pages/user.ts"></script>
 </html>
